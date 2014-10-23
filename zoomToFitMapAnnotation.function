@@ -12,14 +12,6 @@
     bottomRightCoord.longitude = -180;
     
     for(id<MKAnnotation> annotation1 in self.mappaView.annotations){
-
-            atLeastOne = true;
-            topLeftCoord.longitude = fmin(topLeftCoord.longitude, annotation1.coordinate.longitude);
-            topLeftCoord.latitude = fmax(topLeftCoord.latitude, annotation1.coordinate.latitude);
-            bottomRightCoord.longitude = fmax(bottomRightCoord.longitude, annotation1.coordinate.longitude);
-            bottomRightCoord.latitude = fmin(bottomRightCoord.latitude, annotation1.coordinate.latitude);
-     //   }
-/*
         if ([annotation1 isMemberOfClass:[poiAnnotation class]]){
             poiAnnotation * annotation = annotation1;
             atLeastOne = true;
@@ -35,20 +27,10 @@
             bottomRightCoord.longitude = fmax(bottomRightCoord.longitude, annotation.coordinate.longitude);
             bottomRightCoord.latitude = fmin(bottomRightCoord.latitude, annotation.coordinate.latitude);
         }
- */
     }
     if (!atLeastOne) {
         return;
     }
-
-    if ([CLLocationManager locationServicesEnabled]) {
-        CLLocationCoordinate2D val = self.mappaView.userLocation.coordinate;
-        topLeftCoord.longitude = fmin(topLeftCoord.longitude, self.mappaView.userLocation.coordinate.longitude);
-        topLeftCoord.latitude = fmax(topLeftCoord.latitude, self.mappaView.userLocation.coordinate.latitude);
-        bottomRightCoord.longitude = fmax(bottomRightCoord.longitude, self.mappaView.userLocation.coordinate.longitude);
-        bottomRightCoord.latitude = fmin(bottomRightCoord.latitude, self.mappaView.userLocation.coordinate.longitude);
-    }
-    
     
     MKCoordinateRegion region;
     region.center.latitude = topLeftCoord.latitude - (topLeftCoord.latitude - bottomRightCoord.latitude) * 0.5;
